@@ -43,35 +43,16 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $stmt->bind_param("ss", $username,  $password_hash);
         $uid = $stmt->execute();
         if($uid){
-            // 用户验证成功，生成 JWT
-            $payload = array(
-                "user_id" => rand(),
-                "username" =>$username,
-                "role" => "admin",
-                "exp" => time() + 3600
-            );
-
-            // 定义 JWT token 的 header 部分
-            $header = [
-                'alg' => 'HS256', // 使用 HMAC-SHA256 算法加密
-                'typ' => 'JWT',
-            ];
-            $jwt_token = JWT::encode($payload, JWT_SECRET, 'HS256', null, $header);
-//        $jwt = JWT::encode($payload,JWT_SECRET,'HS256');
-            // 返回 JWT
+           
             header('Content-Type: application/json');
             $res['result'] = 'success';
-            $res['jwt'] = $jwt_token;
+            $res['code'] = "200";
             echo json_encode($res);
         }else{
             $res['result'] = 'field';
             echo json_encode($res);
         }
-
-
     }
-
-
 }
 
 

@@ -62,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && isset(
         echo json_encode($res);
     }
 } else {
-
+   
+   
     // 其他请求返回错误信息
     header('HTTP/1.1 400 Bad Request');
     header('Content-Type: application/json');

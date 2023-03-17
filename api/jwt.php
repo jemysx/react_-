@@ -10,6 +10,7 @@ use \Firebase\JWT\JWT;
 
 $jwt = isset($_SERVER['HTTP_AUTHORIZATION']) ? $_SERVER['HTTP_AUTHORIZATION'] : '';
 $res = [];
+
 if (empty($jwt)) {
     header('HTTP/1.1 401 Unauthorized');
     header('Content-Type: application/json');
@@ -21,6 +22,7 @@ if (empty($jwt)) {
         if (strpos($jwt, 'Bearer ') === 0) {
             // 从Authorization字段中解析出JWT token，并进行验证
             $jwt_token = substr($jwt, 7);
+
             try {
                 // 解析 JWT token，并验证签名
                 $decoded_token = JWT::decode($jwt_token, new key (JWT_SECRET,'HS256'));
